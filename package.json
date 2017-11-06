@@ -4,7 +4,7 @@
   "description": "This would be my first Git project So this is it oh... the first thing Git asks me to do.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jasmine",
     "start": "NODE_ENV=production node app/helloWorld.js"
   },
   "repository": {
@@ -19,5 +19,8 @@
   "homepage": "https://github.com/itunuworks/hello-world#readme",
   "dependencies": {
     "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "jasmine": "^2.8.0"
   }
 }
