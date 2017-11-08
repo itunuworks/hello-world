@@ -17,5 +17,12 @@ before_install:
 - gcloud auth activate-service-account --key-file gcloud-service-key.json
 - gcloud config set project shift-dms-183315
 after_success:
-- gcloud compute instances stop ci-instance-4 --zone=us-east1-b
-- gcloud compute instances start ci-instance-4 --zone=us-east1-b
+# Update app on compute engine
+- current_ci_response=1
+- gcloud compute instances add-metadata ci-instance-4 --zone=us-east1-b --metadata current_ci_response=${current_ci_response}
+after_failure:
+- current_ci_response=0
+- gcloud compute instances add-metadata ci-instance-4 --zone=us-east1-b --metadata current_ci_response=${current_ci_response}
+after_script:
+- gcloud compute instances add-metadata ci-instance-4 --zone=us-east1-b --metadata previous_ci_response=${current_ci_response}
+- gcloud compute instances add-metadata ci-instance-4 --zone=us-east1-b --metadata current_ci_response=0
